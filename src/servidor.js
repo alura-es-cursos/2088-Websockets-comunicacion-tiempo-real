@@ -20,6 +20,4 @@ servidorHttp.listen(port, () => {
 
 const io = new Server(servidorHttp);
 
-io.on('connection', () => {
-    console.log('Se conectó un cliente');
-}) 
+export default io;
