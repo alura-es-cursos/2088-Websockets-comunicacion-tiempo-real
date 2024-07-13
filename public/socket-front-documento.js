@@ -1,4 +1,4 @@
-import { actualizarEditor } from "./documento.js";
+import { actualizarEditor, alertarYRedirigir } from "./documento.js";
 
 const socket = io();
 
@@ -19,4 +19,13 @@ socket.on('actualizarEditor', (texto) => {
     actualizarEditor(texto);
 });
 
-export { emitirCambiosEditor, emitirNombreDocumento }
+function emitirBorrarDocumento(nombreDocumento) {
+    socket.emit('borrarDocumento', nombreDocumento);
+}
+
+socket.on('documentoBorrado', (nombreDocumento) => {
+    alertarYRedirigir(nombreDocumento);
+});
+
+
+export { emitirCambiosEditor, emitirNombreDocumento, emitirBorrarDocumento }

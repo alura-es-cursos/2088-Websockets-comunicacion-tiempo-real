@@ -1,5 +1,11 @@
 import { coleccion } from "./conexionBD.js";
 
+
+async function obtenerDocumentos() {
+    const documentos = coleccion.find().toArray();
+    return documentos;
+}
+
 async function obtenerDatosDocumento(nombreDocumento) {
     // return listaDocumentos.find((documento) => {
     //     return documento.nombre === nombreDocumento;
@@ -7,7 +13,6 @@ async function obtenerDatosDocumento(nombreDocumento) {
     const documento = await coleccion.findOne({
         nombre: nombreDocumento
     });
-    console.log(documento)
 
     return documento;
 }
@@ -24,4 +29,21 @@ async function actualizarDatosDocumento(nombreDocumento, texto) {
     return actualizacion;
 }
 
-export { obtenerDatosDocumento, actualizarDatosDocumento }
+async function agregarDocumento(nombreDocumento) {
+    const resultado = await coleccion.insertOne({
+        nombre: nombreDocumento,
+        texto: ''
+    });
+    return resultado;
+}
+
+async function borrarDocumento(nombreDocumento) {
+    const resultado = await coleccion.deleteOne({
+        nombre: nombreDocumento
+    });
+
+    return resultado;
+}
+
+
+export { obtenerDatosDocumento, actualizarDatosDocumento, obtenerDocumentos, agregarDocumento, borrarDocumento }
